@@ -6,8 +6,17 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Drop existing tables if they exist (for clean setup)
+DROP TABLE IF EXISTS order_items CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS delivery_areas CASCADE;
+DROP TABLE IF EXISTS additionals CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS businesses CASCADE;
+
 -- Businesses table
-CREATE TABLE IF NOT EXISTS businesses (
+CREATE TABLE businesses (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   business_name VARCHAR(255) NOT NULL,
@@ -29,7 +38,7 @@ CREATE TABLE IF NOT EXISTS businesses (
 );
 
 -- Categories table
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE categories (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
@@ -40,7 +49,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 -- Products table
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
   category_id UUID NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
@@ -55,7 +64,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- Additionals table
-CREATE TABLE IF NOT EXISTS additionals (
+CREATE TABLE additionals (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
@@ -65,7 +74,7 @@ CREATE TABLE IF NOT EXISTS additionals (
 );
 
 -- Delivery areas table
-CREATE TABLE IF NOT EXISTS delivery_areas (
+CREATE TABLE delivery_areas (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
@@ -75,7 +84,7 @@ CREATE TABLE IF NOT EXISTS delivery_areas (
 );
 
 -- Orders table
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
   customer_name VARCHAR(255) NOT NULL,
@@ -95,7 +104,7 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- Order items table
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   product_id UUID NOT NULL,
@@ -108,13 +117,13 @@ CREATE TABLE IF NOT EXISTS order_items (
 );
 
 -- Create indexes
-CREATE INDEX IF NOT EXISTS idx_businesses_user_id ON businesses(user_id);
-CREATE INDEX IF NOT EXISTS idx_businesses_slug ON businesses(slug);
-CREATE INDEX IF NOT EXISTS idx_categories_business_id ON categories(business_id);
-CREATE INDEX IF NOT EXISTS idx_products_business_id ON products(business_id);
-CREATE INDEX IF NOT EXISTS idx_products_category_id ON products(category_id);
-CREATE INDEX IF NOT EXISTS idx_orders_business_id ON orders(business_id);
-CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX idx_businesses_user_id ON businesses(user_id);
+CREATE INDEX idx_businesses_slug ON businesses(slug);
+CREATE INDEX idx_categories_business_id ON categories(business_id);
+CREATE INDEX idx_products_business_id ON products(business_id);
+CREATE INDEX idx_products_category_id ON products(category_id);
+CREATE INDEX idx_orders_business_id ON orders(business_id);
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);
 
 -- Enable Row Level Security
 ALTER TABLE businesses ENABLE ROW LEVEL SECURITY;
@@ -125,47 +134,157 @@ ALTER TABLE delivery_areas ENABLE ROW LEVEL SECURITY;
 ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
 ALTER TABLE order_items ENABLE ROW LEVEL SECURITY;
 
--- Policies for businesses
-CREATE POLICY "Users can view own businesses" ON businesses FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert own businesses" ON businesses FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update own businesses" ON businesses FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Anyone can view businesses by slug" ON businesses FOR SELECT USING (true);
+-- ==========================================
+-- POLICIES FOR BUSINESSES
+-- ==========================================
+-- Anyone can view businesses (for public menus)
+CREATE POLICY "Public can view businesses" ON businesses 
+  FOR SELECT USING (true);
 
--- Policies for categories
-CREATE POLICY "Users can manage own categories" ON categories FOR ALL USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Anyone can view enabled categories" ON categories FOR SELECT USING (enabled = true);
+-- Authenticated users can insert their own businesses
+CREATE POLICY "Users can insert own businesses" ON businesses 
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- Policies for products
-CREATE POLICY "Users can manage own products" ON products FOR ALL USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Anyone can view enabled products" ON products FOR SELECT USING (enabled = true);
+-- Users can update their own businesses
+CREATE POLICY "Users can update own businesses" ON businesses 
+  FOR UPDATE USING (auth.uid() = user_id);
 
--- Policies for additionals
-CREATE POLICY "Users can manage own additionals" ON additionals FOR ALL USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Anyone can view enabled additionals" ON additionals FOR SELECT USING (enabled = true);
+-- Users can delete their own businesses
+CREATE POLICY "Users can delete own businesses" ON businesses 
+  FOR DELETE USING (auth.uid() = user_id);
 
--- Policies for delivery_areas
-CREATE POLICY "Users can manage own delivery areas" ON delivery_areas FOR ALL USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Anyone can view enabled delivery areas" ON delivery_areas FOR SELECT USING (enabled = true);
+-- ==========================================
+-- POLICIES FOR CATEGORIES
+-- ==========================================
+-- Anyone can view categories (for public menus)
+CREATE POLICY "Public can view categories" ON categories 
+  FOR SELECT USING (true);
 
--- Policies for orders
-CREATE POLICY "Users can view own business orders" ON orders FOR SELECT USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Users can update own business orders" ON orders FOR UPDATE USING (
-  business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid())
-);
-CREATE POLICY "Anyone can create orders" ON orders FOR INSERT WITH CHECK (true);
+-- Business owners can insert categories
+CREATE POLICY "Business owners can insert categories" ON categories 
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
 
--- Policies for order_items
-CREATE POLICY "Users can view own business order items" ON order_items FOR SELECT USING (
-  order_id IN (SELECT id FROM orders WHERE business_id IN (SELECT id FROM businesses WHERE user_id = auth.uid()))
-);
-CREATE POLICY "Anyone can create order items" ON order_items FOR INSERT WITH CHECK (true);
+-- Business owners can update categories
+CREATE POLICY "Business owners can update categories" ON categories 
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can delete categories
+CREATE POLICY "Business owners can delete categories" ON categories 
+  FOR DELETE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- ==========================================
+-- POLICIES FOR PRODUCTS
+-- ==========================================
+-- Anyone can view products (for public menus)
+CREATE POLICY "Public can view products" ON products 
+  FOR SELECT USING (true);
+
+-- Business owners can insert products
+CREATE POLICY "Business owners can insert products" ON products 
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can update products
+CREATE POLICY "Business owners can update products" ON products 
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can delete products
+CREATE POLICY "Business owners can delete products" ON products 
+  FOR DELETE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- ==========================================
+-- POLICIES FOR ADDITIONALS
+-- ==========================================
+-- Anyone can view additionals (for public menus)
+CREATE POLICY "Public can view additionals" ON additionals 
+  FOR SELECT USING (true);
+
+-- Business owners can insert additionals
+CREATE POLICY "Business owners can insert additionals" ON additionals 
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can update additionals
+CREATE POLICY "Business owners can update additionals" ON additionals 
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can delete additionals
+CREATE POLICY "Business owners can delete additionals" ON additionals 
+  FOR DELETE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- ==========================================
+-- POLICIES FOR DELIVERY_AREAS
+-- ==========================================
+-- Anyone can view delivery areas (for public menus)
+CREATE POLICY "Public can view delivery_areas" ON delivery_areas 
+  FOR SELECT USING (true);
+
+-- Business owners can insert delivery areas
+CREATE POLICY "Business owners can insert delivery_areas" ON delivery_areas 
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can update delivery areas
+CREATE POLICY "Business owners can update delivery_areas" ON delivery_areas 
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Business owners can delete delivery areas
+CREATE POLICY "Business owners can delete delivery_areas" ON delivery_areas 
+  FOR DELETE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- ==========================================
+-- POLICIES FOR ORDERS
+-- ==========================================
+-- Business owners can view their orders
+CREATE POLICY "Business owners can view orders" ON orders 
+  FOR SELECT USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- Anyone can insert orders (customers placing orders)
+CREATE POLICY "Anyone can insert orders" ON orders 
+  FOR INSERT WITH CHECK (true);
+
+-- Business owners can update their orders
+CREATE POLICY "Business owners can update orders" ON orders 
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM businesses WHERE id = business_id AND user_id = auth.uid())
+  );
+
+-- ==========================================
+-- POLICIES FOR ORDER_ITEMS
+-- ==========================================
+-- Business owners can view their order items
+CREATE POLICY "Business owners can view order_items" ON order_items 
+  FOR SELECT USING (
+    EXISTS (
+      SELECT 1 FROM orders o 
+      JOIN businesses b ON o.business_id = b.id 
+      WHERE o.id = order_id AND b.user_id = auth.uid()
+    )
+  );
+
+-- Anyone can insert order items (when placing orders)
+CREATE POLICY "Anyone can insert order_items" ON order_items 
+  FOR INSERT WITH CHECK (true);
