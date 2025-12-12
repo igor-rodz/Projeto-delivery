@@ -458,7 +458,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            © {new Date().getFullYear()} PitStop Delivery. Todos os direitos reservados.
+            © 2025 PitStop Delivery. Todos os direitos reservados.
           </div>
         </div>
       </footer>
