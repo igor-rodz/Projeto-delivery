@@ -163,7 +163,13 @@ export default function SettingsPage() {
     }
   }
 
-  const menuUrl = business ? `${typeof window !== 'undefined' ? window.location.origin : ''}/menu/${business.slug}` : ''
+  const [menuUrl, setMenuUrl] = useState('')
+
+  useEffect(() => {
+    if (business && typeof window !== 'undefined') {
+      setMenuUrl(`${window.location.origin}/menu/${business.slug}`)
+    }
+  }, [business])
 
   return (
     <div>
