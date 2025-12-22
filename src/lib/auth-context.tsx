@@ -73,8 +73,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({ email, password })
-    return { error: error as Error | null }
+    const { data, error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        emailRedirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/onboarding`
+      }
+    })
+    
+    // Se o usuário foi criado e não precisa confirmar email, faz login automático
+    if (!error && data.user && !data.user.identities?.length) {
+      // Usuário já existe
+      return { error: new Error('Este email já está cadastrado') as Error }
+    }
+    
+    return { error: error as Error | null, user: data.user }
   }
 
   const signIn = async (email: string, password: string) => {
