@@ -51,8 +51,14 @@ export default function AuthPage() {
         if (error) {
           toast.error(error.message || 'Erro ao criar conta')
         } else {
-          toast.success('Conta criada com sucesso!')
-          router.push('/onboarding')
+          toast.success('Conta criada! Verifique seu email ou faça login.')
+          // Tenta fazer login automaticamente
+          const loginResult = await signIn(email, password)
+          if (!loginResult.error) {
+            router.push('/onboarding')
+          } else {
+            setMode('login')
+          }
         }
       } else {
         const { error } = await signIn(email, password)
