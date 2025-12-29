@@ -142,7 +142,7 @@ export default function OnboardingPage() {
                   ${currentStep > step.id 
                     ? 'bg-green-500 text-white' 
                     : currentStep === step.id 
-                      ? 'bg-red-500 text-white' 
+                      ? 'bg-orange-500 text-white' 
                       : 'bg-gray-200 text-gray-500'
                   }
                 `}>
