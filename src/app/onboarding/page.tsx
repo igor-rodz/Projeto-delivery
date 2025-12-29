@@ -249,7 +249,7 @@ export default function OnboardingPage() {
                     className={`
                       w-32 h-32 rounded-full border-2 border-dashed cursor-pointer
                       flex items-center justify-center overflow-hidden transition-all
-                      ${logoPreview ? 'border-green-500' : 'border-gray-300 hover:border-red-500'}
+                      ${logoPreview ? 'border-green-500' : 'border-gray-300 hover:border-orange-500'}
                     `}
                   >
                     {logoPreview ? (
