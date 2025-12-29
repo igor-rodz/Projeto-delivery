@@ -291,7 +291,7 @@ export default function OnboardingPage() {
               <Button
                 onClick={handleNext}
                 disabled={loading}
-                className="bg-red-500 hover:bg-red-600 text-white rounded-full px-8"
+                className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-8"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
