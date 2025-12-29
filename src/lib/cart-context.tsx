@@ -33,7 +33,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Load cart from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('pitstop_cart')
+    const saved = localStorage.getItem('delivio_cart')
     if (saved) {
       try {
         const { items: savedItems, businessId: savedBusinessId } = JSON.parse(saved)
