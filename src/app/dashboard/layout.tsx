@@ -54,7 +54,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (loading || !business) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Loader2 className="w-8 h-8 animate-spin text-red-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
       </div>
     )
   }
@@ -67,10 +67,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Logo */}
           <div className="flex items-center h-16 px-6 border-b">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">🏁</span>
-              </div>
-              <span className="font-bold text-gray-900">PitStop</span>
+              <img src="https://customer-assets.emergentagent.com/job_3cd58408-f2cd-4a5a-a11d-13da45360bc0/artifacts/t645xvxe_file_00000000209871f484e2bfad8a0b3268.png" alt="Delivio" className="h-8 w-auto" />
+              <span className="font-bold text-gray-900">Deliv<span className="text-orange-500">io</span></span>
             </Link>
           </div>
 
