@@ -93,10 +93,8 @@ export default function AuthPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">🏁</span>
-              </div>
-              <span className="text-2xl font-bold text-gray-900">PitStop<span className="text-red-500">Delivery</span></span>
+              <img src="https://customer-assets.emergentagent.com/job_3cd58408-f2cd-4a5a-a11d-13da45360bc0/artifacts/t645xvxe_file_00000000209871f484e2bfad8a0b3268.png" alt="Delivio" className="h-12 w-auto" />
+              <span className="text-2xl font-bold text-gray-900">Deliv<span className="text-orange-500">io</span></span>
             </Link>
           </div>
 
