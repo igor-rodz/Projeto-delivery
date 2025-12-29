@@ -108,7 +108,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   className={`
                     flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors
                     ${isActive 
-                      ? 'bg-red-50 text-red-600' 
+                      ? 'bg-orange-50 text-orange-600' 
                       : 'text-gray-700 hover:bg-gray-100'
                     }
                   `}
