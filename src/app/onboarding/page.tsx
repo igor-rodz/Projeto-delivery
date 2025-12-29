@@ -114,7 +114,7 @@ export default function OnboardingPage() {
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-red-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
       </div>
     )
   }
@@ -125,10 +125,8 @@ export default function OnboardingPage() {
       <header className="bg-white border-b p-4">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🏁</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">PitStop<span className="text-red-500">Delivery</span></span>
+            <img src="https://customer-assets.emergentagent.com/job_3cd58408-f2cd-4a5a-a11d-13da45360bc0/artifacts/t645xvxe_file_00000000209871f484e2bfad8a0b3268.png" alt="Delivio" className="h-10 w-auto" />
+            <span className="text-xl font-bold text-gray-900">Deliv<span className="text-orange-500">io</span></span>
           </Link>
         </div>
       </header>
