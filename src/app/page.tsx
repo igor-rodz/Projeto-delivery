@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { 
   Store, 
   Smartphone, 
@@ -20,6 +21,8 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_3cd58408-f2cd-4a5a-a11d-13da45360bc0/artifacts/t645xvxe_file_00000000209871f484e2bfad8a0b3268.png"
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -43,10 +46,8 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">🏁</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">PitStop<span className="text-red-500">Delivery</span></span>
+              <img src={LOGO_URL} alt="Delivio" className="h-10 w-auto" />
+              <span className="text-xl font-bold text-gray-900">Deliv<span className="text-orange-500">io</span></span>
             </Link>
 
             {/* Desktop Nav */}
@@ -58,7 +59,7 @@ export default function LandingPage() {
 
             <div className="hidden md:flex items-center space-x-4">
               {user ? (
-                <Button onClick={handleGetStarted} className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6">
+                <Button onClick={handleGetStarted} className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6">
                   {business ? 'Meu Painel' : 'Continuar Cadastro'}
                 </Button>
               ) : (
@@ -67,7 +68,7 @@ export default function LandingPage() {
                     <Button variant="ghost" className="text-gray-700">Entrar</Button>
                   </Link>
                   <Link href="/auth?mode=signup">
-                    <Button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6">
+                    <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6">
                       Começar Grátis
                     </Button>
                   </Link>
@@ -94,7 +95,7 @@ export default function LandingPage() {
               <a href="#testimonials" className="text-gray-600 hover:text-gray-900">Depoimentos</a>
               <div className="pt-4 border-t space-y-3">
                 {user ? (
-                  <Button onClick={handleGetStarted} className="w-full bg-red-500 hover:bg-red-600 text-white rounded-full">
+                  <Button onClick={handleGetStarted} className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-full">
                     {business ? 'Meu Painel' : 'Continuar Cadastro'}
                   </Button>
                 ) : (
@@ -103,7 +104,7 @@ export default function LandingPage() {
                       <Button variant="outline" className="w-full">Entrar</Button>
                     </Link>
                     <Link href="/auth?mode=signup" className="block">
-                      <Button className="w-full bg-red-500 hover:bg-red-600 text-white rounded-full">
+                      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-full">
                         Começar Grátis
                       </Button>
                     </Link>
@@ -116,17 +117,17 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-red-50 via-white to-orange-50">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-orange-50 via-white to-amber-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Zap className="w-4 h-4" />
               Novo: Integração com WhatsApp disponível!
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Crie seu cardápio digital
-              <span className="text-red-500"> em minutos</span>
+              <span className="text-orange-500"> em minutos</span>
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -138,7 +139,7 @@ export default function LandingPage() {
               <Button 
                 onClick={handleGetStarted}
                 size="lg" 
-                className="bg-red-500 hover:bg-red-600 text-white rounded-full px-8 h-14 text-lg shadow-lg shadow-red-500/25"
+                className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-8 h-14 text-lg shadow-lg shadow-orange-500/25"
               >
                 Criar meu cardápio grátis
                 <ChevronRight className="w-5 h-5 ml-2" />
@@ -240,8 +241,8 @@ export default function LandingPage() {
                 key={index}
                 className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow"
               >
-                <div className="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
-                  <feature.icon className="w-7 h-7 text-red-500" />
+                <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                  <feature.icon className="w-7 h-7 text-orange-500" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
@@ -285,9 +286,9 @@ export default function LandingPage() {
             </div>
 
             {/* Pro */}
-            <div className="bg-white rounded-2xl p-8 border-2 border-red-500 relative">
+            <div className="bg-white rounded-2xl p-8 border-2 border-orange-500 relative">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-red-500 text-white text-sm font-medium px-4 py-1 rounded-full">
+                <span className="bg-orange-500 text-white text-sm font-medium px-4 py-1 rounded-full">
                   Mais Popular
                 </span>
               </div>
@@ -311,7 +312,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Button className="w-full bg-red-500 hover:bg-red-600 text-white rounded-full" onClick={handleGetStarted}>
+              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-full" onClick={handleGetStarted}>
                 Assinar Pro
               </Button>
             </div>
@@ -401,18 +402,18 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-red-500 to-red-600">
+      <section className="py-20 bg-gradient-to-br from-orange-500 to-orange-600">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Pronto para aumentar suas vendas?
           </h2>
-          <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de restaurantes que já estão vendendo mais com PitStop Delivery
+          <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
+            Junte-se a milhares de restaurantes que já estão vendendo mais com Delivio
           </p>
           <Button 
             onClick={handleGetStarted}
             size="lg" 
-            className="bg-white text-red-600 hover:bg-gray-100 rounded-full px-8 h-14 text-lg font-semibold"
+            className="bg-white text-orange-600 hover:bg-gray-100 rounded-full px-8 h-14 text-lg font-semibold"
           >
             Criar meu cardápio grátis
             <ChevronRight className="w-5 h-5 ml-2" />
@@ -426,10 +427,8 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">🏁</span>
-                </div>
-                <span className="text-xl font-bold text-white">PitStop<span className="text-red-500">Delivery</span></span>
+                <img src={LOGO_URL} alt="Delivio" className="h-10 w-auto" />
+                <span className="text-xl font-bold text-white">Deliv<span className="text-orange-500">io</span></span>
               </div>
               <p className="text-sm">A plataforma mais fácil para restaurantes receberem pedidos online.</p>
             </div>
@@ -458,7 +457,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            © 2025 PitStop Delivery. Todos os direitos reservados.
+            © 2025 Delivio. Todos os direitos reservados.
           </div>
         </div>
       </footer>
