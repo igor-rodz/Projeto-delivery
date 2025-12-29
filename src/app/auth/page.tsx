@@ -163,7 +163,7 @@ export default function AuthPage() {
 
               {mode === 'login' && (
                 <div className="text-right">
-                  <a href="#" className="text-sm text-red-500 hover:text-red-600">
+                  <a href="#" className="text-sm text-orange-500 hover:text-orange-600">
                     Esqueceu a senha?
                   </a>
                 </div>
