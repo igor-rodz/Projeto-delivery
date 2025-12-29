@@ -219,7 +219,7 @@ export default function SettingsPage() {
                 />
                 <div 
                   onClick={() => logoInputRef.current?.click()}
-                  className="mt-2 w-32 h-32 rounded-full border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-red-500 transition-colors"
+                  className="mt-2 w-32 h-32 rounded-full border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-orange-500 transition-colors"
                 >
                   {logoPreview ? (
                     <img src={logoPreview} alt="Logo" className="w-full h-full object-cover" />
@@ -243,7 +243,7 @@ export default function SettingsPage() {
                 />
                 <div 
                   onClick={() => coverInputRef.current?.click()}
-                  className="mt-2 aspect-video max-w-xs rounded-lg border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-red-500 transition-colors"
+                  className="mt-2 aspect-video max-w-xs rounded-lg border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-orange-500 transition-colors"
                 >
                   {coverPreview ? (
                     <img src={coverPreview} alt="Cover" className="w-full h-full object-cover" />
@@ -335,7 +335,7 @@ export default function SettingsPage() {
                   variant={form.payment_methods.includes(method) ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => togglePaymentMethod(method)}
-                  className={form.payment_methods.includes(method) ? 'bg-red-500 hover:bg-red-600' : ''}
+                  className={form.payment_methods.includes(method) ? 'bg-orange-500 hover:bg-orange-600' : ''}
                 >
                   {method}
                 </Button>
@@ -374,7 +374,7 @@ export default function SettingsPage() {
         {/* Save Button */}
         <Button 
           onClick={handleSave} 
-          className="w-full md:w-auto bg-red-500 hover:bg-red-600"
+          className="w-full md:w-auto bg-orange-500 hover:bg-orange-600"
           disabled={saving}
         >
           {saving ? (

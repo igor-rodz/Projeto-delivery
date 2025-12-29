@@ -224,7 +224,7 @@ export default function DeliveryPage() {
 
             <Button 
               onClick={saveDeliverySettings} 
-              className="w-full bg-red-500 hover:bg-red-600"
+              className="w-full bg-orange-500 hover:bg-orange-600"
               disabled={savingSettings}
             >
               {savingSettings ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Salvar Configurações'}
@@ -280,7 +280,7 @@ export default function DeliveryPage() {
                       <Button variant="ghost" size="sm" onClick={() => openDialog(area)}>
                         <Edit className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" onClick={() => deleteArea(area.id)} className="text-red-600">
+                      <Button variant="ghost" size="sm" onClick={() => deleteArea(area.id)} className="text-orange-600">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -323,7 +323,7 @@ export default function DeliveryPage() {
               <Button variant="outline" className="flex-1" onClick={() => setDialogOpen(false)}>
                 Cancelar
               </Button>
-              <Button className="flex-1 bg-red-500 hover:bg-red-600" onClick={saveArea} disabled={saving}>
+              <Button className="flex-1 bg-orange-500 hover:bg-orange-600" onClick={saveArea} disabled={saving}>
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Salvar'}
               </Button>
             </div>

@@ -314,7 +314,7 @@ export default function ProductsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Produtos</h1>
           <p className="text-gray-600">Gerencie seu cardápio</p>
         </div>
-        <Button onClick={() => openProductDialog()} className="bg-red-500 hover:bg-red-600">
+        <Button onClick={() => openProductDialog()} className="bg-orange-500 hover:bg-orange-600">
           <Plus className="w-4 h-4 mr-2" />
           Novo Produto
         </Button>
@@ -413,7 +413,7 @@ export default function ProductsPage() {
                           </DropdownMenuItem>
                           <DropdownMenuItem 
                             onClick={() => deleteProduct(product.id)}
-                            className="text-red-600"
+                            className="text-orange-600"
                           >
                             <Trash2 className="w-4 h-4 mr-2" />
                             Excluir
@@ -422,7 +422,7 @@ export default function ProductsPage() {
                       </DropdownMenu>
                     </div>
                     <p className="text-sm text-gray-600 line-clamp-2 mb-3">{product.description}</p>
-                    <p className="text-lg font-bold text-red-500">R$ {product.price.toFixed(2)}</p>
+                    <p className="text-lg font-bold text-orange-500">R$ {product.price.toFixed(2)}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -467,7 +467,7 @@ export default function ProductsPage() {
                         </DropdownMenuItem>
                         <DropdownMenuItem 
                           onClick={() => deleteCategory(category.id)}
-                          className="text-red-600"
+                          className="text-orange-600"
                           disabled={productCount > 0}
                         >
                           <Trash2 className="w-4 h-4 mr-2" />
@@ -502,7 +502,7 @@ export default function ProductsPage() {
               />
               <div 
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-1 aspect-video rounded-lg border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-red-500 transition-colors"
+                className="mt-1 aspect-video rounded-lg border-2 border-dashed cursor-pointer flex items-center justify-center overflow-hidden hover:border-orange-500 transition-colors"
               >
                 {productImagePreview ? (
                   <img src={productImagePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -589,7 +589,7 @@ export default function ProductsPage() {
               <Button variant="outline" className="flex-1" onClick={() => setProductDialogOpen(false)}>
                 Cancelar
               </Button>
-              <Button className="flex-1 bg-red-500 hover:bg-red-600" onClick={saveProduct} disabled={saving}>
+              <Button className="flex-1 bg-orange-500 hover:bg-orange-600" onClick={saveProduct} disabled={saving}>
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Salvar'}
               </Button>
             </div>
@@ -626,7 +626,7 @@ export default function ProductsPage() {
               <Button variant="outline" className="flex-1" onClick={() => setCategoryDialogOpen(false)}>
                 Cancelar
               </Button>
-              <Button className="flex-1 bg-red-500 hover:bg-red-600" onClick={saveCategory} disabled={saving}>
+              <Button className="flex-1 bg-orange-500 hover:bg-orange-600" onClick={saveCategory} disabled={saving}>
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Salvar'}
               </Button>
             </div>

@@ -20,7 +20,7 @@ const statusFlow = [
   { value: 'ready', label: 'Pronto', color: 'bg-purple-100 text-purple-700', icon: CheckCircle },
   { value: 'out_for_delivery', label: 'Saiu p/ entrega', color: 'bg-indigo-100 text-indigo-700', icon: Truck },
   { value: 'delivered', label: 'Entregue', color: 'bg-green-100 text-green-700', icon: CheckCircle },
-  { value: 'cancelled', label: 'Cancelado', color: 'bg-red-100 text-red-700', icon: XCircle },
+  { value: 'cancelled', label: 'Cancelado', color: 'bg-orange-100 text-red-700', icon: XCircle },
 ]
 
 export default function OrdersPage() {
@@ -154,7 +154,7 @@ export default function OrdersPage() {
             variant={filter === f.value ? 'default' : 'outline'}
             size="sm"
             onClick={() => setFilter(f.value)}
-            className={filter === f.value ? 'bg-red-500 hover:bg-red-600' : ''}
+            className={filter === f.value ? 'bg-orange-500 hover:bg-orange-600' : ''}
           >
             {f.label}
           </Button>
