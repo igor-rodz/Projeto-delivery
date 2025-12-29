@@ -201,7 +201,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 href={item.href}
                 className={`
                   flex flex-col items-center justify-center p-2 rounded-lg
-                  ${isActive ? 'text-red-500' : 'text-gray-500'}
+                  ${isActive ? 'text-orange-500' : 'text-gray-500'}
                 `}
               >
                 <item.icon className="w-5 h-5" />
