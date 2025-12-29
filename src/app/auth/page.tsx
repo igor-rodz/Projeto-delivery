@@ -172,7 +172,7 @@ export default function AuthPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-12 bg-red-500 hover:bg-red-600 text-white rounded-full text-lg"
+                className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-lg"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
