@@ -190,7 +190,7 @@ export default function AuthPage() {
                   Não tem uma conta?{' '}
                   <button
                     onClick={() => setMode('signup')}
-                    className="text-red-500 font-semibold hover:text-red-600"
+                    className="text-orange-500 font-semibold hover:text-orange-600"
                   >
                     Cadastre-se
                   </button>
@@ -200,7 +200,7 @@ export default function AuthPage() {
                   Já tem uma conta?{' '}
                   <button
                     onClick={() => setMode('login')}
-                    className="text-red-500 font-semibold hover:text-red-600"
+                    className="text-orange-500 font-semibold hover:text-orange-600"
                   >
                     Entrar
                   </button>
