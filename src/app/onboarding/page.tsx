@@ -267,7 +267,7 @@ export default function OnboardingPage() {
                         setLogo(null)
                         setLogoPreview(null)
                       }}
-                      className="mt-3 text-sm text-red-500 hover:text-red-600"
+                      className="mt-3 text-sm text-orange-500 hover:text-orange-600"
                     >
                       Remover imagem
                     </button>
