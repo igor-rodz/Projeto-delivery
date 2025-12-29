@@ -78,8 +78,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               {business.logo_url ? (
                 <img src={business.logo_url} alt="" className="w-10 h-10 rounded-full object-cover" />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-                  <Store className="w-5 h-5 text-red-500" />
+                <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                  <Store className="w-5 h-5 text-orange-500" />
                 </div>
               )}
               <div className="flex-1 min-w-0">
