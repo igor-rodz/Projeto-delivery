@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PitStop Delivery - Crie seu cardápio digital",
+  title: "Delivio - Crie seu cardápio digital",
   description: "Plataforma SaaS para restaurantes criarem seu cardápio digital e receberem pedidos online. Fácil, rápido e profissional.",
-  keywords: "cardápio digital, delivery, restaurante, pedidos online, ifood",
+  keywords: "cardápio digital, delivery, restaurante, pedidos online, delivio",
 };
 
 export default function RootLayout({
