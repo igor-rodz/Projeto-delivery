@@ -47,7 +47,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem('pitstop_cart', JSON.stringify({ items, businessId }))
+    localStorage.setItem('delivio_cart', JSON.stringify({ items, businessId }))
   }, [items, businessId])
 
   const addItem = (item: CartItem, newBusinessId: string) => {
