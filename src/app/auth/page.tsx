@@ -211,9 +211,9 @@ export default function AuthPage() {
 
           <p className="text-center text-gray-500 text-sm mt-6">
             Ao continuar, você concorda com nossos{' '}
-            <a href="#" className="text-red-500 hover:underline">Termos de Uso</a>
+            <a href="#" className="text-orange-500 hover:underline">Termos de Uso</a>
             {' '}e{' '}
-            <a href="#" className="text-red-500 hover:underline">Política de Privacidade</a>
+            <a href="#" className="text-orange-500 hover:underline">Política de Privacidade</a>
           </p>
         </div>
       </div>
